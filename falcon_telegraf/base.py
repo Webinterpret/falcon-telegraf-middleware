@@ -1,9 +1,35 @@
-from typing import Dict
+from typing import Dict, Optional
+from warnings import warn
 
 import falcon
+from telegraf import TelegrafClient
 
 
 class Middleware:
+    def __init__(self,
+                 telegraf_client: Optional[TelegrafClient] = None,
+                 tags: Optional[Dict[str, str]] = None,
+                 metric_name_prefix: Optional[str] = None,
+                 metric_name: Optional[str] = None
+                 ) -> None:
+        self._telegraf = telegraf_client or TelegrafClient(host='localhost', port=8094)
+        if all((metric_name_prefix, metric_name)):
+            warn("Metric name prefix ignored - will use only metric_name={}".format(metric_name))
+        self._metric_name_prefix = metric_name_prefix or ''
+        self._metric_name = metric_name
+        self._tags = tags or dict()
+
+    def get_tags(self, req) -> Dict[str, str]:
+        tags = {}
+        tags.update(self._tags)
+        tags['path'] = req.relative_uri
+        return tags
+
+    def get_metric_name(self, req: falcon.Request) -> str:
+        if self._metric_name:
+            return self._metric_name
+        return self._metric_name_prefix + req.relative_uri
+
     def process_request(self, req: falcon.Request, resp: falcon.Response):
         """Process the request before routing it.
 
