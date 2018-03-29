@@ -19,6 +19,9 @@ class LogHits(Middleware):
         self._metric_name_prefix = self._metric_name_prefix or 'hits-'
 
     def process_resource(self, req: falcon.Request, resp: falcon.Response, resource, params: Dict):
+        self.metric(req)
+
+    def metric(self, req):
         self._telegraf.metric(
             self.get_metric_name(req),
             values={
@@ -26,3 +29,17 @@ class LogHits(Middleware):
             },
             tags=self.get_tags(req),
         )
+
+
+class LogHitsContextAware(LogHits):
+    def process_resource(self, req: falcon.Request, resp: falcon.Response, resource, params: Dict):
+        pass
+
+    def process_response(self, req: falcon.Request, resp: falcon.Response, resource, req_succeeded: bool):
+        self.metric(req)
+
+    def get_tags(self, req: falcon.Request) -> Dict[str, str]:
+        tags = super().get_tags(req)
+        for k, v in req.context.items():
+            tags[str(k)] = str(v)
+        return tags

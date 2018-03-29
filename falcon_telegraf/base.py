@@ -19,7 +19,7 @@ class Middleware:
         self._metric_name = metric_name
         self._tags = tags or dict()
 
-    def get_tags(self, req) -> Dict[str, str]:
+    def get_tags(self, req: falcon.Request) -> Dict[str, str]:
         tags = {}
         tags.update(self._tags)
         tags['path'] = req.relative_uri
