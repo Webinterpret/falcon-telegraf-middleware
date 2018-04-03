@@ -4,6 +4,8 @@ from warnings import warn
 import falcon
 from telegraf import TelegrafClient
 
+RESERVED_TAGS = {'path'}
+
 
 class Middleware:
     def __init__(self,
@@ -18,17 +20,21 @@ class Middleware:
         self._metric_name_prefix = metric_name_prefix or ''
         self._metric_name = metric_name
         self._tags = tags or dict()
+        if RESERVED_TAGS & set(self._tags.keys()):
+            warn("Some default tags will be overwritten")
 
-    def get_tags(self, req) -> Dict[str, str]:
+    def get_tags(self, req: falcon.Request) -> Dict[str, str]:
         tags = {}
         tags.update(self._tags)
-        tags['path'] = req.relative_uri
+        tags['path'] = req.path
+        if req.query_string:
+            tags['query'] = req.query_string
         return tags
 
     def get_metric_name(self, req: falcon.Request) -> str:
         if self._metric_name:
             return self._metric_name
-        return self._metric_name_prefix + req.relative_uri
+        return self._metric_name_prefix + req.path
 
     def process_request(self, req: falcon.Request, resp: falcon.Response):
         """Process the request before routing it.
