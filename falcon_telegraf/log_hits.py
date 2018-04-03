@@ -1,21 +1,10 @@
-from typing import Dict, Optional, Any
+from typing import Dict, Optional
 
 import falcon
 from telegraf import TelegrafClient
 
-from falcon_telegraf.base import Middleware
-
-
-def merge_and_normalize_tags(*dicts: Dict[Any, Any]):
-    result = {}
-    for d in dicts:
-        if d:
-            for k, v in d.items():
-                try:
-                    result[str(k)] = str(v)
-                except:
-                    pass  # don't care
-    return result
+from .base import Middleware
+from .utils import merge_and_normalize_tags
 
 
 class LogHits(Middleware):
