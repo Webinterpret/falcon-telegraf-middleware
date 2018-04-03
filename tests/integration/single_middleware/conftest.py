@@ -5,7 +5,6 @@ import webtest
 from telegraf import TelegrafClient
 
 from falcon_telegraf import LogHits
-from tests.integration.resources import AResource, BResource, CResource
 
 
 @pytest.fixture
@@ -29,3 +28,21 @@ def app(telegraf_client):
 @pytest.fixture
 def webapi(app):
     return webtest.TestApp(app)
+
+
+class AResource:
+
+    def on_get(self, req, resp):
+        resp.body = 'Success'
+
+
+class BResource:
+    def on_get(self, req, resp):
+        req.context['adventure'] = 'time'
+        resp.body = 'Algebraic!'
+
+
+class CResource:
+    def on_get(self, req, resp, id=None):
+        req.context['id'] = str(id)
+        resp.body = 'C rules'

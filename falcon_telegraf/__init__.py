@@ -1,2 +1,7 @@
-from .log_hits import LogHits  # noqa
+from .log_hits import LogHits
+from .log_hits import LogHitsContextAware
 
+__all__ = [
+    'LogHits',
+    'LogHitsContextAware',
+]

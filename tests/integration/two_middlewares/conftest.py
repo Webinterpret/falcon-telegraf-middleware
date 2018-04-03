@@ -5,8 +5,7 @@ import webtest
 from telegraf import TelegrafClient
 
 from falcon_telegraf import LogHits
-from log_hits import LogHitsContextAware
-from tests.integration.resources import AResource, CResource
+from falcon_telegraf import LogHitsContextAware
 
 
 @pytest.fixture
@@ -30,3 +29,15 @@ def app(telegraf_client):
 @pytest.fixture
 def webapi(app):
     return webtest.TestApp(app)
+
+
+class AResource:
+
+    def on_get(self, req, resp):
+        resp.body = 'Success'
+
+
+class CResource:
+    def on_get(self, req, resp, id=None):
+        req.context['id'] = str(id)
+        resp.body = 'C rules'

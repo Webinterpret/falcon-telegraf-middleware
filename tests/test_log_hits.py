@@ -5,7 +5,7 @@ from falcon import Request, Response
 from telegraf import TelegrafClient
 
 from falcon_telegraf import LogHits
-from log_hits import LogHitsContextAware
+from falcon_telegraf import LogHitsContextAware
 
 
 def test_log_hits():

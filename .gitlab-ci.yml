@@ -1,0 +1,44 @@
+stages:
+  - tests
+  - deploy
+
+variables:
+  LC_ALL: en_US.UTF-8
+
+python3.6-tests:
+  image: 312454134791.dkr.ecr.eu-west-1.amazonaws.com/wi-python:3.6-onbuild-centos6.8
+  stage: tests
+  script:
+    - pip install .
+    - pip install -r requirements_dev.txt
+    - py.test
+  tags:
+    - tests
+
+python3.6-centos6-deploy-wheel:
+  image: 312454134791.dkr.ecr.eu-west-1.amazonaws.com/wi-wheeler:py3.6-centos6.8
+  stage: deploy
+  script:
+    - pip wheel . -w ./dist
+    - twine upload --skip-existing -r cheeseshop ./dist/*.whl
+  tags:
+    - tests
+  only:
+    - /[[:digit:]].[[:digit:]].[[:digit:]]/
+  except:
+    - branches
+    - triggers
+
+python3.6-centos7-deploy-wheel:
+  image: 312454134791.dkr.ecr.eu-west-1.amazonaws.com/wi-wheeler:py3.6-centos7.3
+  stage: deploy
+  script:
+    - pip wheel . -w ./dist
+    - twine upload --skip-existing -r cheeseshop ./dist/*.whl
+  tags:
+    - tests
+  only:
+    - /[[:digit:]].[[:digit:]].[[:digit:]]/
+  except:
+    - branches
+    - triggers
