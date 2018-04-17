@@ -35,7 +35,9 @@ def on_get(self, request, response, some_path_variable):
 ```
 It's metric name is the same as for `LogHits`.
 Note that using this two middlewares in the sam API doesn't make any sense.
-
+### `Timer`
+Reports time in ms elapsed between registering response and registering request. Default metric prefix is `time-`.
+Other things in processing pipeline can affect it's readings so take them with a grain of salt. 
 ## Deploy
 First bump version in `setup.py` in master branch via merge request. Afterwards push a version tag and wait.
 
