@@ -1,7 +1,5 @@
 # falcon-telegraf-middleware
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com)
-
 ## What is this?
 
 Package to ease gathering metrics from [Falcon](http://falcon.readthedocs.io/) APIs into InfluxDB via a Telegraf.
