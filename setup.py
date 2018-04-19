@@ -21,12 +21,12 @@ tests_require = read_requirements('requirements_dev.txt')
 
 setup(
     name='falcon-telegraf-middleware',
-    version='2018.3.29.1',
+    version='2018.4.18.1',
     author='Webinterpret',
     author_email='funky_chicken@webinterpret.com',
     description='Falcon to Telegraf middlewares',
     long_description=read_file('README.md'),
-    url='https://gitlab.devwebinterpret.com/kamil.e/falcon-telegraf-middleware',
+    url='https://github.com/Webinterpret/falcon-telegraf-middleware',
     install_requires=install_requires,
     tests_require=tests_require,
     classifiers=[
@@ -35,6 +35,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.6',
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: MIT License'
     ],
     packages=find_packages(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),

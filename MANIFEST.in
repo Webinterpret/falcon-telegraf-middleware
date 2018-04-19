@@ -1,0 +1,9 @@
+
+include LICENSE.txt
+include README.md
+
+include requirements_dev.txt
+
+include .travis.yml
+
+global-exclude *.py[cod] __pycache__ *.so *.dylib

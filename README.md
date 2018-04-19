@@ -1,5 +1,9 @@
 # falcon-telegraf-middleware
 
+[![Build Status](https://travis-ci.org/Webinterpret/falcon-telegraf-middleware.svg?branch=master)](https://travis-ci.org/Webinterpret/falcon-telegraf-middleware)
+
+![PyPI](https://img.shields.io/pypi/v/falcon-telegraf-middleware.svg?style=for-the-badge)
+
 [![forthebadge](https://forthebadge.com/images/badges/no-ragrets.svg)](https://forthebadge.com)
 
 ## What is this?
@@ -39,7 +43,7 @@ It's metric name is the same as for `LogHits`.
 Note that using this two middlewares in the sam API doesn't make any sense.
 ### `Timer`
 Reports time in ms elapsed between registering response and registering request. Default metric prefix is `time-`.
-Other things in processing pipeline can affect it's readings so take them with a grain of salt. 
+Other things in processing pipeline can affect it's readings so take them with a grain of salt.
 ## Deploy
 First bump version in `setup.py` in master branch via merge request. Afterwards push a version tag and wait.
 
