@@ -12,6 +12,7 @@ script:
 deploy:
   on:
     tags: true
+    python: '3.6'
   provider: pypi
   user: ekamil
   password:
