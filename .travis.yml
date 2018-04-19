@@ -10,8 +10,9 @@ install:
 script:
 - py.test
 deploy:
+  on:
+    tags: true
   provider: pypi
-  server: https://test.pypi.org/legacy/
   user: ekamil
   password:
     secure: aGIvgYSAXl+4gct3PoNCs1JpKYv8qc1Zz+XSWDIjdluy66UeyGv62ilcRl3L2M8FghA9dZf68JJ/3XblNRpIXiZhIt6B2FFZ27+Ney6iyh03T5USFTiAg+70dRt3UNFQFBqhcI2y1iFO1bYxb1Qu//gzZpkGAvoFURElJKlFfSKCDPMYQxHtgQXdlQe4USEVk5lzYKZzXadqdh06O17GxZnJkozI/gDIolVDdsrXILGI87ACbkWtHWjg4v7dbdhYvmUHYcndhrgO4tRwYMciQLu4iGPC882ybHu1+RPfulwKWVD8BbTQak7RcgDbbMtgd9seuIqi871HoK9rlY3hMNiKVlhzV++aQch/vln/FLsrTrOfBBNGVYCLYYdxO9JTe+rkgn8W8ZAuSS3UaGdg4pg/61vvU+CPA563rNvPalmOBO/ZVgdzGhLpywPoa/t/pKngsHNfltHwrq36JE6b/Sm0D+RkquiPmBg/AEXILPlA7HqU7hAMXs6hf906xmMLDfa0K52+WZpg7KKlIURYUAdS9iHzmNxoTcWc0A0n0dBwNAKAASOAycuFxbsnaGmGVxwdVXUFeMqW9anif5aa5QuZZOUBIpBCRTSGbjeJ7nVjxjVN2ZP9unBp2kXYuQmxWHewN6L7HzNF6STxHpZFU1Usk4mUUqQ0BvV4c3tjHi4=

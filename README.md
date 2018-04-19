@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Webinterpret/falcon-telegraf-middleware.svg?branch=master)](https://travis-ci.org/Webinterpret/falcon-telegraf-middleware)
 
+![PyPI](https://img.shields.io/pypi/v/falcon-telegraf-middleware.svg?style=for-the-badge)
+
 [![forthebadge](https://forthebadge.com/images/badges/no-ragrets.svg)](https://forthebadge.com)
 
 ## What is this?
