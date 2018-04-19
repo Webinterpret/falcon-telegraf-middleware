@@ -26,6 +26,7 @@ setup(
     author_email='funky_chicken@webinterpret.com',
     description='Falcon to Telegraf middlewares',
     long_description=read_file('README.md'),
+    long_description_content_type='text/markdown',
     url='https://github.com/Webinterpret/falcon-telegraf-middleware',
     install_requires=install_requires,
     tests_require=tests_require,
