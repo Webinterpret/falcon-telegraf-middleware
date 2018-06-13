@@ -19,7 +19,7 @@ telegraf_client = TelegrafClient('localhost', 8094)
 app = falcon.API(
     middleware=[
         LogHits(telegraf_client),
-        TimeRequests(),
+        Timer(),
     ]
 )
 ```
