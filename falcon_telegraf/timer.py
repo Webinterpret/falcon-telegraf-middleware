@@ -1,4 +1,3 @@
-
 import time
 from typing import Dict, Optional
 
@@ -35,6 +34,7 @@ class Timer(Middleware):
             self._telegraf.metric(
                 self.get_metric_name(req),
                 values={
+                    'hits': 1,
                     'time_delta': delta,
                 },
                 tags=tags,
