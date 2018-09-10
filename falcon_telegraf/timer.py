@@ -10,12 +10,14 @@ START_TIME = 'x-start-time'
 
 
 def timer():
+    """Multiplying is done o return millis and keep backwards compatibility.
+    """
     try:
         from time import perf_counter
-        return perf_counter()
+        return int(round(perf_counter() * 1000))
     except ImportError:
         from time import time
-        return time()
+        return int(round(time() * 1000))
 
 
 class Timer(Middleware):
