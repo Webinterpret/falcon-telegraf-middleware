@@ -21,7 +21,7 @@ tests_require = read_requirements('requirements_dev.txt')
 
 setup(
     name='falcon-telegraf-middleware',
-    version='2018.7.12.1',
+    version='2018.9.10.1',
     author='Webinterpret',
     author_email='funky_chicken@webinterpret.com',
     description='Falcon to Telegraf middlewares',
