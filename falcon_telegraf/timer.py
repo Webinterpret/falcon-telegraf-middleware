@@ -1,4 +1,3 @@
-import time
 from typing import Dict, Optional
 
 import falcon
@@ -9,7 +8,16 @@ from .utils import merge_and_normalize_tags
 
 START_TIME = 'x-start-time'
 
-current_time_millis = lambda: int(round(time.time() * 1000))
+
+def timer():
+    """Multiplying is done o return millis and keep backwards compatibility.
+    """
+    try:
+        from time import perf_counter
+        return int(round(perf_counter() * 1000))
+    except ImportError:
+        from time import time
+        return int(round(time() * 1000))
 
 
 class Timer(Middleware):
@@ -24,11 +32,11 @@ class Timer(Middleware):
         self._metric_name_prefix = self._metric_name_prefix or 'time-'
 
     def process_request(self, req: falcon.Request, resp: falcon.Response):
-        req.context[START_TIME] = current_time_millis()
+        req.context[START_TIME] = timer()
 
     def process_response(self, req: falcon.Request, resp: falcon.Response, resource, req_succeeded: bool):
         try:
-            delta = current_time_millis() - req.context.pop(START_TIME)
+            delta = timer() - req.context.pop(START_TIME)
             tags = merge_and_normalize_tags(self.get_tags(req), req.context, resp.context)
             tags['success'] = str(req_succeeded)
             self._telegraf.metric(
