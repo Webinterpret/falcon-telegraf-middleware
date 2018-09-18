@@ -10,7 +10,7 @@ START_TIME = 'x-start-time'
 
 
 def timer():
-    """Multiplying is done o return millis and keep backwards compatibility.
+    """Multiplying is done to return millis and keep backwards compatibility.
     """
     try:
         from time import perf_counter
