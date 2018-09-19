@@ -15,6 +15,8 @@ By use of middlewares this orthogonal functionality is added in a hassle-free wa
 Inject the middleware (or couple of them) when creating `Api` instance:
 
 ```python
+from falcon_telegraf import LogHits, Timer
+
 telegraf_client = TelegrafClient('localhost', 8094)
 app = falcon.API(
     middleware=[
