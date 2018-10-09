@@ -34,7 +34,10 @@ class Middleware:
     def get_metric_name(self, req: falcon.Request) -> str:
         if self._metric_name:
             return self._metric_name
-        return self._metric_name_prefix + req.path
+        if not req.uri_template:
+            # https://docs.influxdata.com/influxdb/v1.6/concepts/schema_and_data_layout/#discouraged-schema-design
+            warn('URI template is available only while processing a response; going to use path')
+        return self._metric_name_prefix + (req.uri_template or req.path)
 
     def process_request(self, req: falcon.Request, resp: falcon.Response):
         """Process the request before routing it.

@@ -11,11 +11,11 @@ from falcon_telegraf import LogHitsContextAware
 def test_log_hits():
     tc = mockito.mock(spec=TelegrafClient, strict=True)
     mockito.when(tc).metric(
-        'hits-/v1/ping',
+        'hits-/v1/{id}/ping',
         values={
             'hits': 1,
         },
-        tags={'path': '/v1/ping'},
+        tags={'path': '/v1/1/ping'},
     )
     mwr = LogHits(
         telegraf_client=tc,
@@ -28,11 +28,11 @@ def test_log_hits():
 def test_log_hits_with_context():
     tc = mockito.mock(spec=TelegrafClient, strict=True)
     mockito.when(tc).metric(
-        'hits-/v1/ping',
+        'hits-/v1/{id}/ping',
         values={
             'hits': 1,
         },
-        tags={'path': '/v1/ping',
+        tags={'path': '/v1/1/ping',
               'foo': 'bar',
               'success': 'True'},
     )
@@ -46,7 +46,8 @@ def test_log_hits_with_context():
 
 def request():
     req = mock.Mock(spec=Request)
-    req.path = "/v1/ping"
+    req.path = "/v1/1/ping"
+    req.uri_template = "/v1/{id}/ping"
     req.query_string = ''
     return req
 

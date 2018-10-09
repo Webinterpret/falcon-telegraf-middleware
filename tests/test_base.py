@@ -12,8 +12,8 @@ def test_base_methods():
     )
     req = request()
 
-    assert "hits-/v1/ping" == mwr.get_metric_name(req)
-    assert {'default': '1', 'path': '/v1/ping'} == mwr.get_tags(req)
+    assert "hits-/v1/{id}/ping" == mwr.get_metric_name(req)
+    assert {'default': '1', 'path': '/v1/1/ping'} == mwr.get_tags(req)
 
 
 def test_metric_name_override():
@@ -33,11 +33,12 @@ def test_metric_name_prefix():
     )
     req = request()
 
-    assert "abc:/v1/ping" == mwr.get_metric_name(req)
+    assert "abc:/v1/{id}/ping" == mwr.get_metric_name(req)
 
 
 def request():
     req = mock.Mock(spec=Request)
-    req.path = "/v1/ping"
+    req.path = "/v1/1/ping"
+    req.uri_template = "/v1/{id}/ping" 
     req.query_string = ''
     return req

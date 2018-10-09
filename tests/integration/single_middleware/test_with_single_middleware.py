@@ -23,6 +23,6 @@ def test_middleware_called_mixed(webapi, telegraf_client):
 
 def test_middleware_called_params(webapi, telegraf_client):
     assert webapi.get('/c/1?foo=1').status_code == 200
-    verify(telegraf_client, times=1).metric('hits-/c/1',
+    verify(telegraf_client, times=1).metric('hits-/c/{id}',
                                             values={'hits': 1},
                                             tags={'path': '/c/1', 'query': 'foo=1', 'id': '1'})
