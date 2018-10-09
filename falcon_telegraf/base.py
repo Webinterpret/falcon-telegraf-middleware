@@ -28,8 +28,6 @@ class Middleware:
         tags.update(self._tags)
         tags['method'] = req.method
         tags['path'] = req.path
-        if req.query_string:
-            tags['query'] = req.query_string
         return tags
 
     def get_metric_name(self, req: falcon.Request) -> str:
