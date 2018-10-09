@@ -13,7 +13,7 @@ def test_base_methods():
     req = request()
 
     assert "hits-/v1/{id}/ping" == mwr.get_metric_name(req)
-    assert {'default': '1', 'path': '/v1/1/ping'} == mwr.get_tags(req)
+    assert {'default': '1', 'path': '/v1/1/ping', 'method': 'GET'} == mwr.get_tags(req)
 
 
 def test_metric_name_override():
@@ -41,4 +41,5 @@ def request():
     req.path = "/v1/1/ping"
     req.uri_template = "/v1/{id}/ping" 
     req.query_string = ''
+    req.method = 'GET'
     return req

@@ -15,7 +15,7 @@ def test_log_hits():
         values={
             'hits': 1,
         },
-        tags={'path': '/v1/1/ping'},
+        tags={'path': '/v1/1/ping', 'method': 'GET'},
     )
     mwr = LogHits(
         telegraf_client=tc,
@@ -34,7 +34,8 @@ def test_log_hits_with_context():
         },
         tags={'path': '/v1/1/ping',
               'foo': 'bar',
-              'success': 'True'},
+              'success': 'True',
+              'method': 'GET'},
     )
     mwr = LogHitsContextAware(
         telegraf_client=tc,
@@ -49,6 +50,7 @@ def request():
     req.path = "/v1/1/ping"
     req.uri_template = "/v1/{id}/ping"
     req.query_string = ''
+    req.method = 'GET'
     return req
 
 

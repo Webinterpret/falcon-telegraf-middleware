@@ -4,7 +4,7 @@ from warnings import warn
 import falcon
 from telegraf import TelegrafClient
 
-RESERVED_TAGS = {'path'}
+RESERVED_TAGS = {'path', 'method'}
 
 
 class Middleware:
@@ -26,6 +26,7 @@ class Middleware:
     def get_tags(self, req: falcon.Request) -> Dict[str, str]:
         tags = {}
         tags.update(self._tags)
+        tags['method'] = req.method
         tags['path'] = req.path
         if req.query_string:
             tags['query'] = req.query_string
