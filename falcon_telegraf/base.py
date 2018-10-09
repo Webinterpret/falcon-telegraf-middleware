@@ -4,7 +4,7 @@ from warnings import warn
 import falcon
 from telegraf import TelegrafClient
 
-RESERVED_TAGS = {'path', 'method'}
+RESERVED_TAGS = {'path', 'method', 'status'}
 
 
 class Middleware:
@@ -23,10 +23,11 @@ class Middleware:
         if RESERVED_TAGS & set(self._tags.keys()):
             warn("Some default tags will be overwritten")
 
-    def get_tags(self, req: falcon.Request) -> Dict[str, str]:
+    def get_tags(self, req: falcon.Request, resp: falcon.Response) -> Dict[str, str]:
         tags = {}
         tags.update(self._tags)
         tags['method'] = req.method
+        tags['status'] = resp.status
         tags['path'] = req.path
         return tags
 
