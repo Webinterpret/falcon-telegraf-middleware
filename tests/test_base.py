@@ -16,7 +16,7 @@ def test_base_methods():
     resp = response()
 
     assert "hits-/v1/{id}/ping" == mwr.get_metric_name(req)
-    assert {'default': '1', 'method': 'GET', 'status': '200 OK'} == mwr.get_tags(req, resp)
+    assert {'uri_template': '/v1/{id}/ping', 'default': '1', 'method': 'GET', 'status': '200 OK'} == mwr.get_tags(req, resp)
 
 
 def test_metric_name_override():

@@ -4,7 +4,7 @@ from warnings import warn
 import falcon
 from telegraf import TelegrafClient
 
-RESERVED_TAGS = {'method', 'status'}
+RESERVED_TAGS = {'uri_template', 'method', 'status'}
 
 
 class Middleware:
@@ -28,6 +28,7 @@ class Middleware:
         tags.update(self._tags)
         tags['method'] = req.method
         tags['status'] = resp.status
+        tags['uri_template'] = req.uri_template
         return tags
 
     def get_metric_name(self, req: falcon.Request) -> str:
