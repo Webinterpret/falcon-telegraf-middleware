@@ -5,7 +5,6 @@ import webtest
 from telegraf import TelegrafClient
 
 from falcon_telegraf import LogHits
-from falcon_telegraf import LogHitsContextAware
 
 
 @pytest.fixture
@@ -18,7 +17,6 @@ def app(telegraf_client):
     api = falcon.API(
         middleware=[
             LogHits(telegraf_client=telegraf_client),
-            LogHitsContextAware(telegraf_client=telegraf_client),
         ]
     )
     api.add_route('/x', AResource())

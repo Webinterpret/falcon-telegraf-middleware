@@ -4,7 +4,7 @@ from warnings import warn
 import falcon
 from telegraf import TelegrafClient
 
-RESERVED_TAGS = {'path'}
+RESERVED_TAGS = {'uri_template', 'method', 'status'}
 
 
 class Middleware:
@@ -23,18 +23,21 @@ class Middleware:
         if RESERVED_TAGS & set(self._tags.keys()):
             warn("Some default tags will be overwritten")
 
-    def get_tags(self, req: falcon.Request) -> Dict[str, str]:
+    def get_tags(self, req: falcon.Request, resp: falcon.Response) -> Dict[str, str]:
         tags = {}
         tags.update(self._tags)
-        tags['path'] = req.path
-        if req.query_string:
-            tags['query'] = req.query_string
+        tags['method'] = req.method
+        tags['status'] = resp.status
+        tags['uri_template'] = req.uri_template
         return tags
 
     def get_metric_name(self, req: falcon.Request) -> str:
         if self._metric_name:
             return self._metric_name
-        return self._metric_name_prefix + req.path
+        if not req.uri_template:
+            # https://docs.influxdata.com/influxdb/v1.6/concepts/schema_and_data_layout/#discouraged-schema-design
+            warn('URI template is available only while processing a response; going to use path')
+        return self._metric_name_prefix + (req.uri_template or req.path)
 
     def process_request(self, req: falcon.Request, resp: falcon.Response):
         """Process the request before routing it.
