@@ -4,14 +4,14 @@ from mockito import verify, any, contains
 def test_middleware_called(webapi, telegraf_client):
     response = webapi.get('/a')
     assert response.text == 'Success'
-    verify(telegraf_client, times=1).metric('hits-/a', values={'hits': 1}, tags={'uri_template': '/a', 'method': 'GET', 'status': '200 OK'})
+    verify(telegraf_client, times=1).metric('hits-/a', values={'hits': 1}, tags={'uri_template': '/a', 'method': 'GET', 'status': '200'})
 
 
 def test_middleware_called_n_times(webapi, telegraf_client):
     assert webapi.get('/a').text == 'Success'
     assert webapi.get('/a').text == 'Success'
     assert webapi.get('/a').text == 'Success'
-    verify(telegraf_client, times=3).metric('hits-/a', values={'hits': 1}, tags={'uri_template': '/a', 'method': 'GET', 'status': '200 OK'})
+    verify(telegraf_client, times=3).metric('hits-/a', values={'hits': 1}, tags={'uri_template': '/a', 'method': 'GET', 'status': '200'})
 
 
 def test_middleware_called_mixed(webapi, telegraf_client):
@@ -25,4 +25,4 @@ def test_middleware_called_params(webapi, telegraf_client):
     assert webapi.get('/c/1?foo=1').status_code == 200
     verify(telegraf_client, times=1).metric('hits-/c/{id}',
                                             values={'hits': 1},
-                                            tags={'uri_template': '/c/{id}', 'id': '1', 'method': 'GET', 'status': '200 OK'})
+                                            tags={'uri_template': '/c/{id}', 'id': '1', 'method': 'GET', 'status': '200'})
