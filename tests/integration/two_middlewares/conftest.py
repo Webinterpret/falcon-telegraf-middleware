@@ -37,5 +37,7 @@ class AResource:
 
 class CResource:
     def on_get(self, req, resp, id=None):
-        req.context['id'] = str(id)
+        req.context['telegraf_tags']['id'] = str(id)
+        req.context['telegraf_values']['count'] = 5
+        resp.context['telegraf_values']['foo'] = 'bar'
         resp.body = 'C rules'

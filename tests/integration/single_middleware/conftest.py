@@ -38,11 +38,11 @@ class AResource:
 
 class BResource:
     def on_get(self, req, resp):
-        req.context['adventure'] = 'time'
+        req.context['telegraf_tags']['adventure'] = 'time'
         resp.body = 'Algebraic!'
 
 
 class CResource:
     def on_get(self, req, resp, id=None):
-        req.context['id'] = str(id)
+        req.context['telegraf_tags']['id'] = str(id)
         resp.body = 'C rules'

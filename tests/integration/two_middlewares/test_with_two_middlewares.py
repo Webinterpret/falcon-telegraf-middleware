@@ -11,6 +11,6 @@ def test_middleware_called_params(webapi, telegraf_client):
     assert webapi.get('/y/1?foo=1').status_code == 200
     verify(telegraf_client, times=1).metric(
         'hits-/y/{id}',
-        values={'hits': 1},
+        values={'hits': 1, 'count': 5, 'foo': 'bar'},
         tags=any_(dict),
     )

@@ -48,6 +48,10 @@ class Middleware:
             resp: Response object that will be routed to
                 the on_* responder.
         """
+        req.context['telegraf_tags'] = {}
+        req.context['telegraf_values'] = {}
+        resp.context['telegraf_tags'] = {}
+        resp.context['telegraf_values'] = {}
 
     def process_resource(self, req: falcon.Request, resp: falcon.Response, resource, params: Dict):
         """Process the request after routing.
