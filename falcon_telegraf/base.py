@@ -27,7 +27,7 @@ class Middleware:
         tags = {}
         tags.update(self._tags)
         tags['method'] = req.method
-        tags['status'] = resp.status
+        tags['status'] = resp.status[:3]
         tags['uri_template'] = req.uri_template
         return tags
 

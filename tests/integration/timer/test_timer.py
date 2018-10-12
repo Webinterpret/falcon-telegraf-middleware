@@ -6,7 +6,7 @@ def test_middleware_called(webapi, telegraf_client):
     when(telegraf_client).metric(
         'timer',
         values=values_captor,
-        tags={'path': '/wait/0.2', 'success': 'True'}
+        tags={'path': '/wait/0.2'}
     )
     response = webapi.get('/wait/0.2')
     assert response.text == 'Have waited 0.2 seconds'

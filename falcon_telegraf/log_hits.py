@@ -22,7 +22,6 @@ class LogHits(Middleware):
 
     def process_response(self, req: falcon.Request, resp: falcon.Response, resource, req_succeeded: bool):
         tags = merge_and_normalize_tags(self.get_tags(req, resp), req.context, resp.context)
-        tags['success'] = str(req_succeeded)
         self._telegraf.metric(
             self.get_metric_name(req),
             values={
