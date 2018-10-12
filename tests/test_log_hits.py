@@ -18,7 +18,6 @@ def test_log_hits():
             'path': '/v1/1/ping',
             'foo': 'bar',
             'method': 'GET',
-            'success': 'True',
         },
     )
     mwr = LogHits(

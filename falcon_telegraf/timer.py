@@ -38,7 +38,6 @@ class Timer(Middleware):
         try:
             delta = timer() - req.context.pop(START_TIME)
             tags = merge_and_normalize_tags(self.get_tags(req, resp), req.context, resp.context)
-            tags['success'] = str(req_succeeded)
             self._telegraf.metric(
                 self.get_metric_name(req),
                 values={
