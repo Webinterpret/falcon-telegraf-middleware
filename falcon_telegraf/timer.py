@@ -4,7 +4,7 @@ import falcon
 from telegraf import TelegrafClient
 
 from .base import Middleware
-from .utils import merge_and_normalize_tags
+from .utils import merge_and_normalize
 
 START_TIME = 'x-start-time'
 
@@ -37,13 +37,23 @@ class Timer(Middleware):
     def process_response(self, req: falcon.Request, resp: falcon.Response, resource, req_succeeded: bool):
         try:
             delta = timer() - req.context.pop(START_TIME)
-            tags = merge_and_normalize_tags(self.get_tags(req, resp), req.context, resp.context)
-            self._telegraf.metric(
-                self.get_metric_name(req),
-                values={
+            tags = merge_and_normalize(
+                self.get_tags(req, resp),
+                req.context.get('telegraf_tags', {}),
+                resp.context.get('telegraf_tags', {}),
+            )
+            values = merge_and_normalize(
+                {
                     'hits': 1,
                     'time_delta': delta,
                 },
+                req.context.get('telegraf_values', {}),
+                resp.context.get('telegraf_values', {}),
+                cast=False,
+            )
+            self._telegraf.metric(
+                self.get_metric_name(req),
+                values=values,
                 tags=tags,
             )
         except KeyError:

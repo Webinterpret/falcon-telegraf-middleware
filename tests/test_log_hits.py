@@ -24,7 +24,8 @@ def test_log_hits():
         telegraf_client=tc,
     )
     req = request()
-    req.context = {'foo': 'bar'}
+    req.context = {}
+    req.context['telegraf_tags'] = {'foo': 'bar'}
     mwr.process_resource(req, response(), None, True)
 
 
