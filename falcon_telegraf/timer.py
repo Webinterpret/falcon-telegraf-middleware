@@ -32,6 +32,7 @@ class Timer(Middleware):
         self._metric_name_prefix = self._metric_name_prefix or 'time-'
 
     def process_request(self, req: falcon.Request, resp: falcon.Response):
+        super().process_request(req, resp)
         req.context[START_TIME] = timer()
 
     def process_response(self, req: falcon.Request, resp: falcon.Response, resource, req_succeeded: bool):
