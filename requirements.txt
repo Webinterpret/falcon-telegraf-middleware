@@ -1,2 +1,2 @@
-falcon>=1.4.1;<3
+falcon>=1.4.1,<3
 pytelegraf~=0.3.1
