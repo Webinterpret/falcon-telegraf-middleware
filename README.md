@@ -43,6 +43,14 @@ def on_get(self, request, response, some_path_variable):
 ### `Timer`
 Reports time in ms elapsed between registering response and registering request. Default metric prefix is `time-`.
 Other things in processing pipeline can affect it's readings so take them with a grain of salt.
+
+## Testing
+
+```bash
+pip install -e .
+pytest
+```
+
 ## Deploy
 First bump version in `setup.py` in master branch via merge request. Afterwards push a version tag and wait.
 
