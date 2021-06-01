@@ -33,16 +33,16 @@ def webapi(app):
 class AResource:
 
     def on_get(self, req, resp):
-        resp.body = 'Success'
+        resp.text = 'Success'
 
 
 class BResource:
     def on_get(self, req, resp):
         req.context['telegraf_tags']['adventure'] = 'time'
-        resp.body = 'Algebraic!'
+        resp.text = 'Algebraic!'
 
 
 class CResource:
     def on_get(self, req, resp, id=None):
         req.context['telegraf_tags']['id'] = str(id)
-        resp.body = 'C rules'
+        resp.text = 'C rules'

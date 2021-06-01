@@ -34,4 +34,4 @@ class WaitResource:
     def on_get(self, req, resp, sec=0.1):
         seconds = float(sec)
         time.sleep(seconds)
-        resp.body = 'Have waited %1.1f seconds' % seconds
+        resp.text = 'Have waited %1.1f seconds' % seconds
