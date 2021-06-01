@@ -1,8 +1,7 @@
 language: python
 python:
-- '3.5'
-- '3.6'
-- pypy3.5
+- '3.8'
+- '3.9'
 install:
 - pip install -r requirements.txt
 - pip install -r requirements_dev.txt
@@ -12,7 +11,7 @@ script:
 deploy:
   on:
     tags: true
-    python: '3.6'
+    python: '3.9'
   provider: pypi
   user: ekamil
   password:
